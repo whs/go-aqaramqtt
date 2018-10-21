@@ -33,13 +33,13 @@ func parseBuffer(buffer []byte, gateway *Gateway) (*ReportMessage, error) {
 		gateway.token = message.Token
 	}
 
-	var data DeviceData
+	var data map[string]interface{}
 	if err := json.Unmarshal([]byte(message.Data), &data); err != nil {
 		return nil, err
 	}
 
-	if data.Error != "" {
-		return nil, errors.New(data.Error)
+	if val, ok := data["error"]; ok {
+		return nil, errors.New(val.(string))
 	}
 
 	return &ReportMessage{

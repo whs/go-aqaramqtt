@@ -6,7 +6,10 @@ gazelle(name = "gazelle")
 
 go_library(
     name = "go_default_library",
-    srcs = ["main.go"],
+    srcs = [
+        "aqaramqtt.go",
+        "main.go",
+    ],
     importpath = "github.com/whs/go-aqaramqtt",
     visibility = ["//visibility:private"],
     deps = [

@@ -10,7 +10,7 @@ type ListenResponse struct {
 type ReportMessage struct {
 	Model string
 	Sid   string
-	Data  DeviceData
+	Data  map[string]interface{}
 }
 
 type internalReportMessage struct {
@@ -20,14 +20,4 @@ type internalReportMessage struct {
 	Sid   string `json:"sid"`
 	Token string `json:"token,omitempty"`
 	Data  string `json:"data"`
-}
-
-// DeviceData are reported from ReportMessage
-type DeviceData struct {
-	Status       string  `json:"status,omitempty"`
-	Battery      int     `json:"battery,omitempty,string"`
-	Voltage      int     `json:"voltage,omitempty"`
-	LoadPower    float32 `json:"load_power,omitempty,string"`
-	Error        string  `json:"error,omitempty"`
-	Illumination int     `json:"illumination,omitempty"`
 }

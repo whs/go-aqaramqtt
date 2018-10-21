@@ -9,7 +9,7 @@ import (
 	"sync"
 )
 
-// https://aqara.gitbooks.io/lumi-gateway-lan-communication-api/content/
+// http://docs.opencloud.aqara.cn/en/development/gateway-LAN-communication/
 
 // Gateway represent a Xiaomi Aqara Gateway
 type Gateway struct {
