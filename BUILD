@@ -15,6 +15,7 @@ go_library(
     deps = [
         "//aqara:go_default_library",
         "@com_github_eclipse_paho_mqtt_golang//:go_default_library",
+        "@in_gopkg_alecthomas_kingpin_v2//:go_default_library",
     ],
 )
 

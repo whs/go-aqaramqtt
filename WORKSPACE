@@ -33,7 +33,19 @@ go_repository(
 )
 
 go_repository(
-    name = "org_golang_x_net",
-    commit = "04a2e542c03f1d053ab3e4d6e5abcd4b66e2be8e",
-    importpath = "golang.org/x/net",
+    name = "in_gopkg_alecthomas_kingpin_v2",
+    commit = "947dcec5ba9c011838740e680966fd7087a71d0d",
+    importpath = "gopkg.in/alecthomas/kingpin.v2",
+)
+
+go_repository(
+    name = "com_github_alecthomas_units",
+    commit = "2efee857e7cfd4f3d0138cc3cbb1b4966962b93a",
+    importpath = "github.com/alecthomas/units",
+)
+
+go_repository(
+    name = "com_github_alecthomas_template",
+    commit = "a0175ee3bccc567396460bf5acd36800cb10c49c",
+    importpath = "github.com/alecthomas/template",
 )

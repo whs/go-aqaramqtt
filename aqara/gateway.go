@@ -85,31 +85,68 @@ func (g *Gateway) GetDeviceStatus(sid string) (*ReportMessage, error) {
 }
 
 type setMesage struct {
-	Cmd  string `json:"cmd"`
-	Sid  string `json:"sid"`
-	Data string `json:"data"`
+	Cmd  string                 `json:"cmd"`
+	Sid  string                 `json:"sid"`
+	Data map[string]interface{} `json:"data"`
 }
 
-type setGatewayMessage struct {
-	RGB int64  `json:"rgb"`
-	Key string `json:"key,omitempty"`
+func (m *setMesage) Marshall(key string) ([]byte, error) {
+	m.Data["key"] = key
+	return json.Marshal(m)
 }
 
 // SetRGB set the gateway's light
-func (g *Gateway) SetRGB(rgb int64) (*ReportMessage, error) {
-	inner, err := json.Marshal(setGatewayMessage{
-		RGB: rgb,
-		Key: g.getKey(),
-	})
+func (g *Gateway) SetRGB(rgb uint64) (*ReportMessage, error) {
+	message, err := (&setMesage{
+		Cmd: "write",
+		Sid: g.Sid,
+		Data: map[string]interface{}{
+			"rgb": rgb,
+		},
+	}).Marshall(g.getKey())
 	if err != nil {
 		return nil, err
 	}
 
-	message, err := json.Marshal(setMesage{
-		Cmd:  "write",
-		Sid:  g.Sid,
-		Data: string(inner),
-	})
+	resp, err := g.communicate(message)
+	if err != nil {
+		return nil, err
+	}
+
+	return parseBuffer(resp, g)
+}
+
+// SetMID sound the gateway
+func (g *Gateway) SetMID(mid uint, vol uint) (*ReportMessage, error) {
+	message, err := (&setMesage{
+		Cmd: "write",
+		Sid: g.Sid,
+		Data: map[string]interface{}{
+			"mid": mid,
+			"vol": vol,
+		},
+	}).Marshall(g.getKey())
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := g.communicate(message)
+	if err != nil {
+		return nil, err
+	}
+
+	return parseBuffer(resp, g)
+}
+
+// SetStatus set a device's status
+func (g *Gateway) SetStatus(sid string, status string) (*ReportMessage, error) {
+	message, err := (&setMesage{
+		Cmd: "write",
+		Sid: sid,
+		Data: map[string]interface{}{
+			"status": status,
+		},
+	}).Marshall(g.getKey())
 	if err != nil {
 		return nil, err
 	}

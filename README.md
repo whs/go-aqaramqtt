@@ -5,7 +5,7 @@ I've been using a custom Xiaomi Aqara MQTT bridge for a while, but it loads my R
 This project includes
 
 - [Xiaomi Aqara Protocol Client](aqara)
-- Coming soon: MQTT bridge
+- [MQTT bridge](main.go)
 
 ## Building
 
@@ -38,3 +38,21 @@ To add external dependencies:
 ```sh
 bazel run :gazelle -- update-repos github.com/example/module
 ```
+
+## Command line options
+
+Option             | Required | Description
+-------------------|----------|-------------------------------------
+--help             |          | Read help     
+--ip               |          | Xiaomi Gateway IP address
+--sid              |          | Xiaomi Gateway SID
+--key              | Y        | Xiaomi Gateway encryption key ([Tutorial](https://www.domoticz.com/wiki/Xiaomi_Gateway_(Aqara)#Adding_the_Xiaomi_Gateway_to_Domoticz)). Use environment variable `AQARA_KEY` instead. 
+--iface            | Y        | Network adapter to use for Xiaomi communication (eg. eth0)
+--mqtt-server      | Y        | Protocol and address of MQTT server (eg. tcp://192.168.1.1:1883. Supported scheme: tcp, ssl, ws)
+--username         |          | MQTT username. Use environment variable `MQTT_USERNAME` instead.
+--password         |          | MQTT password. Use environment variable `MQTT_PASSWORD` instead. 
+--prefix           |          | MQTT prefix. Default to "xiaomi"
+
+## License
+
+Licensed under the [MIT license](LICENSE)

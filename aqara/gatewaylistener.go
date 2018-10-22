@@ -9,11 +9,11 @@ import (
 
 // GatewayListener provide a way to listen to a list of gateways
 type GatewayListener struct {
-	Gateways []Gateway
+	Gateways []*Gateway
 }
 
 // NewGatewayListener create a GatewayListener instance
-func NewGatewayListener(gateways []Gateway) GatewayListener {
+func NewGatewayListener(gateways []*Gateway) GatewayListener {
 	return GatewayListener{
 		Gateways: gateways,
 	}
@@ -80,7 +80,7 @@ func (g *GatewayListener) Listen(c chan ListenResponse) error {
 func (g *GatewayListener) getGatewayFromAddr(addr *net.UDPAddr) *Gateway {
 	for _, gateway := range g.Gateways {
 		if gateway.IP.Equal(addr.IP) {
-			return &gateway
+			return gateway
 		}
 	}
 	return nil
