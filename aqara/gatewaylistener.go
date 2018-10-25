@@ -49,6 +49,9 @@ func (g *GatewayListener) Listen(c chan ListenResponse) error {
 		IP:   net.IPv4(224, 0, 0, 50),
 		Port: 9898,
 	})
+	if err != nil {
+		return err
+	}
 	defer con.Close()
 
 	buffer := make([]byte, 1024)

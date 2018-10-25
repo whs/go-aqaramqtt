@@ -41,6 +41,8 @@ func NewAqaraMqtt(mqttOptions *mqtt.ClientOptions, gateway *aqara.Gateway, prefi
 func (a *AqaraMqtt) initMqtt(mqttOptions *mqtt.ClientOptions) {
 	mqttOptions.SetWill(fmt.Sprintf("%s/status", a.Prefix), "0", 1, true)
 	mqttOptions.SetOnConnectHandler(func(client mqtt.Client) {
+		log.Print("connected to mqtt")
+
 		if token := client.Publish(fmt.Sprintf("%s/status", a.Prefix), 1, true, "1"); token.Wait() && token.Error() != nil {
 			log.Printf("LWT publish fail: %v", token.Error())
 		}
