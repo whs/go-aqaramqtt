@@ -41,6 +41,7 @@ func main() {
 
 	// Setup MQTT
 	mqttOptions := mqtt.NewClientOptions()
+	mqttOptions.SetMaxReconnectInterval(10 * time.Second)
 	mqttOptions.AddBroker(*flagMqttServer)
 	if flagMqttUsername != nil && flagMqttPassword != nil {
 		mqttOptions.SetUsername(*flagMqttUsername)
