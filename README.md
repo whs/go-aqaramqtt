@@ -56,3 +56,6 @@ Option             | Required | Description
 ## License
 
 Licensed under the [MIT license](LICENSE)
+
+This project is [unmaintained](http://unmaintained.tech/). You may use it, but issues and pull requests might be ignored.
+
